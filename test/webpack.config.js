@@ -4,7 +4,7 @@ var $path = require('path');
 var $webpack = require('webpack');
 var $webpackDevServer = require('webpack-dev-server');
 var $htmlWebpackPlugin = require('html-webpack-plugin');
-var $webpackHmrEntryReplacement = require('../index');
+var $webpackHmrEntryReplace = require('../index');
 
 var $CONFIG = {};
 $CONFIG.root = $path.resolve(__dirname);
@@ -12,8 +12,9 @@ $CONFIG.src = $path.join($CONFIG.root, 'src');
 $CONFIG.dist = $path.join($CONFIG.root, 'dist');
 
 var webpackConfig = {
+	context : $CONFIG.root,
 	entry: {
-		'entry' : 'src/entry.js'
+		'entry' : './src/entry.js'
 	},
 	output: {
 		path: $CONFIG.dist,
@@ -62,6 +63,11 @@ webpackConfig.plugins.push(
 	})
 );
 
-var compiler = $webpack(webpackConfig);
-var server = new $webpackDevServer(compiler, webpackConfig.devServer);
-server.listen(webpackConfig.devServer.port);
+$webpackHmrEntryReplace(webpackConfig);
+
+module.exports = webpackConfig;
+
+
+
+
+

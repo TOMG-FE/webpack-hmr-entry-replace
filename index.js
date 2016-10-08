@@ -9,24 +9,27 @@ module.exports = function(webpackConfig){
 		new $webpack.HotModuleReplacementPlugin()
 	);
 
-	var devClient = [[
-		require.resolve('webpack-dev-server/client'),
-		'?',
-		webpackConfig.devServer.protocol,
-		'://',
-		webpackConfig.devServer.host,
-		':',
-		webpackConfig.devServer.port
-	].join('')];
+	var devClient = '';
+	if(webpackConfig.devServer){
+		devClient = [[
+			require.resolve('webpack-dev-server/client'),
+			'?',
+			webpackConfig.devServer.protocol || 'http',
+			'://',
+			webpackConfig.devServer.host || '127.0.0.1',
+			':',
+			webpackConfig.devServer.port || 8080
+		].join('')];
+	}
 
 	devClient.push('webpack/hot/dev-server');
 
-	if(!Array.isArray(webpackConfig.entry)){
+	if(Array.isArray(webpackConfig.entry)){
+		webpackConfig.entry = devClient.concat(webpackConfig.entry);
+	}else if(typeof webpackConfig.entry === 'object'){
 		Object.keys(webpackConfig.entry).forEach(function(key) {
 			webpackConfig.entry[key] = devClient.concat(webpackConfig.entry[key]);
 		});
-	}else{
-		webpackConfig.entry = devClient.concat(webpackConfig.entry);
 	}
 
 };
