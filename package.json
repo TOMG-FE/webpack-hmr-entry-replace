@@ -13,7 +13,7 @@
     "url": "git+https://github.com/TOMG-FE/webpack-hmr-entry-replace.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/TOMG-FE/webpack-hmr-entry-replace/issues"
   },
