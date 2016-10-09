@@ -18,6 +18,11 @@
     "url": "https://github.com/TOMG-FE/webpack-hmr-entry-replace/issues"
   },
   "homepage": "https://github.com/TOMG-FE/webpack-hmr-entry-replace#readme",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
